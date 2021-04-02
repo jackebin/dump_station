@@ -12,7 +12,7 @@ BIN_SRC=$(wildcard bin/*.c)
 BINS=$(patsubst %.c,%,$(BIN_SRC))
 
 TARGET=build/libjack.a
-#SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
+SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 OS=$(shell uname -si)
 ifeq ($(OS), Linux)
@@ -20,8 +20,8 @@ ifeq ($(OS), Linux)
 endif
 
 # The Target Build
-all: $(TARGET) tests
-all: $(TARGET) bin
+all: $(TARGET) $(SO_TARGET) tests
+all: $(TARGET) $(SO_TARGET) bin
 
 dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
 dev: all
@@ -31,8 +31,8 @@ $(TARGET): build $(OBJECTS)
 	ar rcs $@ $(OBJECTS)
 	ranlib $@
 
-#$(SO_TARGET): $(TARGET) $(OBJECTS)
-#	$(CC) -shared -o $@ $(OBJECTS)
+$(SO_TARGET): $(TARGET) $(OBJECTS)
+	$(CC) -shared -o $@ $(OBJECTS)
 
 build:
 	@mkdir -p build
@@ -40,7 +40,7 @@ build:
 
 # Binaries
 .PHONY: bin
-bin: LDLIBS += $(TARGET)
+bin: LDLIBS += -ldl $(TARGET) #$(SO_TARGET)
 bin: $(BINS)
 	sh ./bin/bincreate.sh
 
@@ -56,7 +56,7 @@ valgrind:
 clean:
 	rm -rf build $(OBJECTS) $(TESTS)
 	rm -f tests/tests.log
-	rm -f bin/quiz
+	rm -f bin/*_exe
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
 

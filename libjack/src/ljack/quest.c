@@ -6,7 +6,7 @@
 Quiz * Quiz_create(const int * VALS) {
 
     int i = 0;
-    
+
     Quiz * quiz =  malloc(sizeof(Quiz));
     check_mem(quiz);
 
@@ -56,7 +56,7 @@ void Quiz_copy(Quiz * quiz, const char * TITL, const char ** ANSW, const char **
     for (i = 0; i < quiz->max_quest; i++) {
 
         char * in = NULL;
-        
+
         QuizMember * temp = &quiz->qm[i];
         check_mem(temp);
 
@@ -101,13 +101,13 @@ void rmnl_len(QuizMember * temp, int max_data) {
 
 void Quiz_input(Quiz * quiz) {
 
-    int i = 0, now = 0;
-    printf("%s\n\n", quiz->title);
+    int i = 0, now = 0, rc = 0;
 
     for (i = 0; i < quiz->max_quest; i++) {
-    
+
+        printf("%s\n\n", quiz->title);
+
         char * in;
-        
         QuizMember * temp = &quiz->qm[i];
         check_mem(temp);
 
@@ -116,14 +116,18 @@ void Quiz_input(Quiz * quiz) {
         printf("Answer: ");
 
         in = fgets(temp->input, quiz->max_data - 1, stdin);
-        check(in != NULL, "Failed to input answer in iteration %d", i);
+        check(in != NULL, "Failed to input answer in iteration %d.", i);
 
         rmnl_len(temp, quiz->max_data);
         temp->input[quiz->max_data - 1] = '\0';
         check(temp->input[quiz->max_data - 1] == '\0',
-              "Failed to NULL-terminate input in iteration %d", i);
+              "Failed to NULL-terminate input in iteration %d.", i);
+
+        rc = system("clear");
+        check(rc == 0, "Failed to clear terminal.");
+
         now++;
-        printf("\n");
+       // printf("\n");
     }
 
 error:
@@ -138,12 +142,12 @@ void Quiz_compare(Quiz * quiz) {
     char * result[] = {"Correct", "Wrong"};
 
     for (i = 0; i < quiz->max_quest; i++) {
-    
+
         int control = 0;
-        
+
         QuizMember * temp = &quiz->qm[i];
         check_mem(temp);
-        
+
         for (j = 0; j < temp->answ_len; j++) {
             if (temp->input[j] == temp->answr[j]) {
                 control++;
@@ -173,11 +177,11 @@ void Quiz_result(Quiz * quiz){
 
     int i = 0;
 
-    printf("\n");
+    printf("%s\n\n", quiz->title);
     printf("RESULT\t\tINPUT\t\t\tANSWER\t\t\tQUESTION\n\n");
 
     for (i = 0; i < quiz->max_quest; i++) {
-    
+
         QuizMember * temp = &quiz->qm[i];
         printf("%s\t\t%s\t\t\t%s\t\t\t%s\n", temp->reslt, temp->input, temp->answr, temp->quest);
     }
@@ -196,13 +200,13 @@ void Quiz_destroy(Quiz * quiz) {
     if (quiz) {
         if (quiz->qm) {
             for (i = 0; i < quiz->max_quest; i++) {
-            
+
                 QuizMember * temp = &quiz->qm[i];
                 free(temp->quest);
                 free(temp->answr);
                 free(temp->input);
                 free(temp->reslt);
-            }
+             }
             free(quiz->qm);
         }
         if (quiz->title)
@@ -213,10 +217,10 @@ void Quiz_destroy(Quiz * quiz) {
 
 // info printed in the executable in case of wrong user input.
 
-void quiz_info(const char ** MSG, const int MSGN	) {
+void quiz_info(const char ** MSG, const int MSGN) {
 
     int i = 0;
-    
+
     for (i = 0; i < MSGN; i++)
         printf("%s\n", MSG[i]);
 }

@@ -1,14 +1,14 @@
 #ifndef ljack_Quests_h
 #define ljack_Quests_h
 
-// current quiz data. 
+// current quiz data.
 
 const int MSGN = 4;
 const char * MSG[] = {
 
-    "AVAILABLE QUIZZES\n",
+    "Aviable quizzes:\n",
     "1. Data Types",
-    "2. Type Sizes (from the stdint.h lib)\n",
+    "2. Type Sizes (from stdint.h)",
     "3. Type Modes\n",
 };
 
@@ -41,6 +41,7 @@ const int TYPE_MODE_VALS[] = {4, 100};
 const char * TYPE_MODE_TITL = {"QUIZ - TYPE MODES"};
 const char * TYPE_MODE_ANSW[] = {"long", "unsigned", "signed", "short"};
 const char * TYPE_MODE_QUIZ[] = {
+
     "Uses a larger storage for the type allowing it to hold bigger numbers.",
     "Modifies the type by giving it a larger bound but nothing under 0.",
     "Allowing negative and positive numbers by halving the upper bound.",
