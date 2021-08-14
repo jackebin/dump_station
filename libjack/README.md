@@ -1,3 +1,5 @@
+	Added "Tasker"
+	
 	back to school!
 	
 	I made a "taskmanager" of some sort for managing all tasks and appointments during upcoming studies.
