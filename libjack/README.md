@@ -1,4 +1,4 @@
-	Added "Tasker"
+	added "tasker" to libjack.
 	
 	back to school!
 	
