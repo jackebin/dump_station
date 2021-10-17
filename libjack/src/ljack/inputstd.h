@@ -1,5 +1,5 @@
-#ifndef linkedl_inputstd_h
-#define linkedl_inputstd_h
+#ifndef libjack_inputstd_h
+#define libjack_inputstd_h
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,14 +60,5 @@ char std_strnwrap(char *strnwrap, size_t *len_strnw);
 char std_validate(const char * wrong_mess);
 
 void std_kill(Inputstd * self);
+
 #endif
-
-
-
-
-
-
-
-
-
-
