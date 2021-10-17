@@ -35,7 +35,7 @@ char *test_float() {
 
 char *test_string() {
 
-	printf("\nWrite something silly\n");
+	printf("\nWrite something silly (press '$' when done)\n");
 	rc = Inputstd_scan(scan_str, every);
     mu_assert(rc == 0,
     	"error test string");
