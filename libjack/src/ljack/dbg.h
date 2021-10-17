@@ -1,9 +1,11 @@
 #ifndef __dbg_h__
 #define __dbg_h__
 
-//  Macro not mine. Shared by Zed A. Shaw in his book "Learn C the hard way".
+//  Debug macro not mine. Shared by Zed A. Shaw from his book "Learn C the hard way".
 
+#include <stdio.h>
 #include <errno.h>
+#include <string.h>
 
 #ifdef NDEBUG
 #define debug(M, ...)
